@@ -1,5 +1,10 @@
-# project-101-textg1
-project-101-textg1 created by GitHub Classroom <br/>
+# Textbook Exchange
+This is a Django application built by myself and 3 other students: Yukesh Sitoula, Larry Cai, and Jammie Wang. It uses Heroku Postgres for the backend, OAuth 2 for account management, and Travis-CI.
+
+This application is essentially a "Craigslist for textbooks", where users can login, post listings for books they'd like to sell, and view/pay for other's listings. It features a payment system using Flutterwave API, a user-to-user messenging system, and a categorized search.
+
+The application is hosted on Heroku [here.](https://project-101-textg1.herokuapp.com/)
+
 Travis-ci status: [![Build Status](https://travis-ci.com/uva-cs3240-s20/project-101-textg1.svg?token=fkp7gcgL1cMH1wwi6Xns&branch=master)](https://travis-ci.com/uva-cs3240-s20/project-101-textg1)
 
 ## References
