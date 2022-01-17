@@ -1,0 +1,74 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<style>
+    .card{
+        height: auto;
+        width: auto;
+        margin: 3vh;
+        align-content: center;
+        justify-content: center;
+        display: flex;
+    }
+    
+    .cardImg{
+        width: 23vh;
+        height: 23vh;
+        align-self: center;
+        /* height: 20%; */
+    }
+    p.textInsideCard{
+        color: black !important;
+        margin: 0 10% 0 10%;
+        align-self: center;
+        
+    }
+    p.currTitle{
+        font-weight: bold;
+        font-size: 5vh;
+        text-align: center;
+    }
+
+    #delete{
+        margin: 0 22% 0 22%;
+        align-self: center;
+    }
+
+    </style>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<div class="container">
+    <div style="height: 80vh;">
+        <!-- <div style="margin-bottom: 27vh; margin-top: 3vh;">
+            <h5>Currently Pending Payments:</h5>
+        </div> -->
+        <p class = "currTitle">Click a textbook below to remove the listing:</p>
+        <div class="row" style="margin-left: 0px">
+            {% for listing in listings %}
+            <div id="displayTextbook">
+                <a href="{% url 'listingdetail' listing.id %}" target="_blank">
+                    <!-- https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg -->
+                    <div class="card">
+                        {% if listing.book_image %}
+                        <img class="cardImg" src="/media/{{listing.book_image}}" alt="Image not available">
+                        {% else %}
+                        <img class="cardImg" src="https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" alt="Image not found">
+                        {% endif %}
+                        <p class="textInsideCard">
+                            <b>{{listing.book_title}}</b><br>
+                            by {{listing.author}} <br>
+                            ${{listing.price}}
+                        </p>
+                        <form action="" method="get">
+                            <button class = "btn btn-danger" id = "delete" name="DeleteButton" value="{{ listing.book_title }}">Delete</button>
+                        </form>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

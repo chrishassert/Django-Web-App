@@ -1,0 +1,119 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<style>
+.container {
+  border: 2px solid #dedede;
+  background-color: #1E90FF;
+  color: #FFFFFF;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  float: right;
+  text-align: right;
+}
+
+.darker {
+text-align: left;
+float: left;
+  border-color: #ccc;
+  color: #000000;
+  background-color: #f1f1f1;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #ffffff;
+}
+
+.time-left {
+  float: left;
+  color: #686868;
+}
+
+background-img {
+  background-image: url("main/coffee-background.jpg")
+  background-repeat: no-repeat;
+  background-position: left top
+  background-color: #cccccc;
+}
+}
+</style>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+{% if other %}
+<h1 style="text-align:center;">{{other.username}}</h1>
+<form action="{% url 'message' %}" method="post">
+    <div class="form-inline">
+        {% csrf_token %}
+        <input type="hidden" name="recipient" value="{{other.username}}" />
+            <input class="form-control" type="text" name="textbox" placeholder="Enter Message" style="width:880px;"/>
+            <button type="submit" class="btn btn-dark">Submit</button>
+    </div>
+</form>
+{% for mess in m%}
+{% if mess.recipient.username == other.username%}  <!-- o is the recipient, so the other person is green--->
+<div class="container">
+    <p><strong>{{mess.sender.username}}:</strong> {{mess.message}}</p>
+    <span class="time-right">{{mess.pub_date}}</span>
+</div>
+
+<!--<p class="text-success" style="display:inline"> {{mess.recipient.username}} </p>: {{mess.message}} <p align=right>{{mess.pub_date}}</p>--->
+{% else %}
+<div class="container darker">
+    <p><strong>{{mess.sender.username}}:</strong> {{mess.message}}</p>
+    <span class="time-left">{{mess.pub_date}}</span>
+</div>
+<!--<p class="text-primary" style="display:inline">{{mess.recipient.username}} </p>: {{mess.message}} <p align=right>{{mess.pub_date}}</p>--->
+{% endif%}
+
+{% endfor %}
+{% else %}
+<div class="container darker">
+    <form action="{% url 'send_message' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="receiver_id"></label>
+            <input class="form-control" type="hidden" name="receiver_id" value="{{ receiver.id }}" />
+        </div>
+        <div class="form-group">
+            <label for="recipent">Recipient</label>
+            <input autocomplete="off" class="form-control" type="text" name="recipient" placeholder="Enter Recipient Username" />
+        </div>
+        <div class="form-group">
+            <label for="textbook">Message</label>
+            <input autocomplete="off" class="form-control" type="text" name="textbox" placeholder="Enter Message"/>
+        </div>
+        <button type="submit" class="btn btn-dark">Send</button>
+    </form>
+</div>
+{% if boolean %}
+<div class="alert alert-error">
+    <strong>You did not enter a valid user name</strong>
+</div>
+{% endif%}
+{% endif%}
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<div class="container profileCard">
+    <!-- <p style="color: red">{{ user}}</p> -->
+    <div >
+        <a href="https://www.google.com" class="profileImageDiv" data-toggle="modal" data-target=".bd-example-modal-lg">
+            <img class="profileImage" src="{{profileImage}}" alt="Profile Picture">   
+        </a>
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <h1>Upload Profile Picture</h1>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="file" name="document">
+                    <button type="submit">Upload file</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    <form method="POST" class="profileInfoDiv" name="phoneNumberUpdate">
+        {% csrf_token %}
+        <div class="profileName">
+            <label for="name">Full Name</label>
+            <input class="form-control" id="name" type="text" placeholder="{{user.get_full_name}}" readonly>    
+        </div>
+        <div class="profileEmail">
+            <label for="email">Email Address</label>
+            <input class="form-control" id="email" type="text" placeholder="{{user.email}}" readonly>    
+        </div>
+        <div class="profilePhoneNumber">
+            <label for="phoneNumber">Phone Number</label>
+            <div class="updateInline">
+                <input name="phoneNumber" class="form-control" id="phoneNumber" type="tel" placeholder="{{phonenumber}}" maxlength="10" minlength="10">   
+                <button type="submit">Update</button>
+            </div>  
+        </div>
+    </form>
+    
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'main/base.html' %}
+
+<!-- Source from : https://mdbootstrap.com/snippets/jquery/marta-szymanska/1451648-->
+<!-- See references -->
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Listing Detail</title>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+      <!-- Bootstrap core CSS -->
+      <link href="{% static 'main/css/bootstrap.min.css' %}" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <!--<link href="{% static 'main/css/mdb.min.css' %}" rel="stylesheet"> -->
+      <!-- Your custom styles (optional) -->
+      <link href="{% static 'main/css/style.min.css' %}" rel="stylesheet">
+    </head>
+    
+    <body>
+      <div class="container my-4 py-4 z-depth-1">
+      <!--Section: Content-->
+      <section class="text-center">
+    
+        <!-- Section heading -->
+        <h3 class="font-weight-bold mb-5">Textbook Details</h3>
+    
+        <div class="row">
+          <div class="col-lg-6">
+    
+            <!--Carousel Wrapper-->
+            <div id="carousel-thumb1" class="carousel slide carousel-fade carousel-thumbnails mb-5 pb-4" data-ride="carousel">
+    
+              <!--Slides-->
+              <div class="carousel-inner text-center text-md-left" role="listbox">
+                <div class="carousel-item active">
+                    {% if listing.book_image %}
+                        <img class="img-fluid" src="/media/{{listing.book_image}}" alt="Image not available">
+                    {% else %}
+                        <img class="img-fluid" src="https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" alt="Image not found">
+                    {% endif %}
+                </div>
+              </div>
+              <!--/.Slides-->
+    
+            </div>
+            <!--/.Carousel Wrapper-->
+          </div>
+    
+          <div class="col-lg-5 text-center text-md-left">
+    
+            <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">{{listing.book_title}}</h2>
+            <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span>
+            <span class="badge badge-success product mb-4 ml-2">SALE</span>
+    
+            <h3 class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
+              <span class="green-text font-weight-bold">
+                <strong>${{listing.price}}</strong>
+              </span>
+            </h3>
+    
+            <div class="font-weight-normal">
+              
+              <p class="ml-xl-0 ml-4">{{listing.book_description}}</p>
+    
+              <p class="ml-xl-0 ml-4">
+                <strong>Author: </strong>{{listing.author}}</p>
+              <p class="ml-xl-0 ml-4">
+                <strong>ISBN: </strong>{{listing.isbn}}</p>
+              <p class="ml-xl-0 ml-4">
+                <strong>Course: </strong>{{listing.book_course}}</p>
+              <p class="ml-xl-0 ml-4">
+                <strong>Seller Computing ID: </strong>{{listing.seller_name}}</p>
+                {% if user.is_authenticated %}
+                    <form>
+                        <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+                        <button type="button" class = "btn btn-success" onClick="payWithRave()">Pay Here</button>
+                    </form>
+                    <script>
+                        // Source: https://dev.to/fullstackmafia/how-to-build-a-custom-checkout-page-in-minutes-with-django-and-javascript-34jc
+                        // const publicKey = "{{ key }}";
+                        const publicKey = "FLWPUBK_TEST-0adf1c61b3426df9365d9a1cff06c3c5-X";
+                        const priceAmount = "{{ listing.price }}";
+                        function payWithRave() {
+                            var x = getpaidSetup({
+                                PBFPubKey: publicKey,
+                                // Change to customer email later
+                                customer_email: "user@example.com",
+                                // CHANGE AMOUNT LATER TO ACCOUNT FOR PRICE OF TEXTBOOK
+                                // Amount must be between 0 and 50, change in views.py
+                                amount : priceAmount,
+                                customer_phone: "234099940409",
+                                currency: "USD",
+                                txref: "rave-123456",
+                                custom_title: "TextG1",
+                                onclose: function() {},
+                                callback: function(response) {
+                                    var txref = response.tx.txRef;
+                                    console.log("This is the response returned after a charge", response);
+                                    if (
+                                        response.tx.chargeResponseCode == "00" ||
+                                        response.tx.chargeResponseCode == "0"
+                                    ) {
+                                        document.location.href = "/paymentSuccess.html"
+                                            // redirect to a success page
+                                    } else {
+                                        // redirect to a failure page.
+                                    }
+                                    x.close();
+                                }
+                            });
+                        }
+                    </script>
+
+                    {% else %}
+                    <div>
+                        <p>To pay, please login</p>
+                    </div>
+
+                    {% endif %}
+
+            </div>
+    
+          </div>
+        </div>
+    
+      </section>
+      <!--Section: Content-->
+    
+    </div>
+    
+      </footer>
+      <!--/.Footer-->
+    
+      <!-- SCRIPTS -->
+      <!-- JQuery -->
+      <script type="text/javascript" src="{% static 'main/js/jquery-3.4.1.min.js' %}"></script>
+      <!-- Bootstrap tooltips -->
+      <script type="text/javascript" src="{% static 'main/js/popper.min.js' %}"></script>
+      <!-- Bootstrap core JavaScript -->
+      <script type="text/javascript" src="{% static 'main/js/bootstrap.min.js' %}"></script>
+      <!-- MDB core JavaScript -->
+      <script type="text/javascript" src="{% static 'main/js/mdb.min.js' %}"></script>
+      <!-- Initializations -->
+      <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+      </script>
+    </body>
+    
+    </html>
+
+{% endblock %}

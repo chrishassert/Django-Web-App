@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+{% if user.is_authenticated %}
+
+<h3 style="text-align:center">Your payment has been processed.</h3>
+<h3 style="text-align:center">Please contact your seller to inform them of your purchase.</h3>
+
+{% else %}
+<div>
+    <p>Please login</p>
+</div>
+    
+{% endif %}
+    
+{% endblock %}

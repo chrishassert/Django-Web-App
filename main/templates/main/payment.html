@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+{% if user.is_authenticated %}
+
+<form>
+    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+        <h3>TextG1</h3>
+      <button type="button" onClick="payWithRave()">Pay Here</button>
+  </form>
+  <script>
+      // Source: https://dev.to/fullstackmafia/how-to-build-a-custom-checkout-page-in-minutes-with-django-and-javascript-34jc
+      const publicKey = "{{ key }}";
+      const priceAmount = "{{ price }}";
+      function payWithRave() {
+          var x = getpaidSetup({
+              PBFPubKey: publicKey,
+              // Change to customer email later
+              customer_email: "user@example.com",
+              // CHANGE AMOUNT LATER TO ACCOUNT FOR PRICE OF TEXTBOOK
+              // Amount must be between 0 and 50, change in views.py
+              amount : priceAmount,
+              customer_phone: "234099940409",
+              currency: "USD",
+              txref: "rave-123456",
+              custom_title: "TextG1",
+              onclose: function() {},
+            callback: function(response) {
+                var txref = response.tx.txRef;
+                console.log("This is the response returned after a charge", response);
+                if (
+                    response.tx.chargeResponseCode == "00" ||
+                    response.tx.chargeResponseCode == "0"
+                ) {
+                    document.location.href = "paymentSuccess.html"
+                        // redirect to a success page
+                } else {
+                    // redirect to a failure page.
+                }
+                x.close();
+            }
+          });
+      }
+  </script>
+
+{% else %}
+<div>
+    <p>To pay, please login</p>
+</div>
+
+{% endif %}
+
+{% endblock %}

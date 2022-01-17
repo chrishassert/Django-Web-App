@@ -1,0 +1,59 @@
+body, html{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* position: relative; */
+}
+
+#background-img{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+}
+
+#textg1-txt{
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+}
+
+#login-container{
+    position: absolute;
+    top: 30%;    
+    left: 5%;
+    /* background-color: red; */
+}
+
+.container-txt{
+    font-family: cursive;
+    font-weight: 600;
+    font-size: 70px;
+}
+
+p{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+span{
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#login-btn{
+    width: 50%;
+    padding: 1.5%;
+    margin-top: 1em;
+    background-color: #dd4b39;
+    font-family: cursive;
+}
+
+#login-btn:hover{
+    opacity: 0.8;
+}

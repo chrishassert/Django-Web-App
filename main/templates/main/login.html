@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main/login.css' %}">
+    <title>Text1g - Login</title>
+</head>
+<body>
+    <img id="background-img" src="{% static 'main/login-background.jpg' %}">
+    <!-- <p id="textg1-txt">Textg1</p> -->
+    <div id="login-container">
+        <p class="container-txt">Hello,</p>
+        <p class="container-txt">Welcome to Textg1</p>
+        <p class="container-txt">To Buy/Sell Textbooks</p>
+        <a id="login-btn" class="btn" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"><span>login</span></a>
+    </div>
+</body>
+</html>

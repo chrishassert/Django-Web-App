@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<style>
+  div.theForm{
+    display: block;
+    text-align: center;
+  }
+  .form-contact{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+</style>
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} 
+        <div class="form-group">
+          <label for="seller_name">Computing ID</label>
+          <input type="text" class="form-control" id="seller_name" name="seller_name" placeholder="e.g. mss2x" maxlength="10" required>
+        </div>
+        <div class="form-group">
+            <label for="book_image">Book Image</label>
+            <input type="file" class="form-control-file" id="book_image" name="book_image">
+        </div>
+        <div class="form-group">
+            <label for="book_title">Book Title</label>
+            <input type="text" class="form-control" id="book_title" name="book_title" placeholder="e.g. Hello World: The Introduction" maxlength="100" required>
+          </div>
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" name="author" placeholder="e.g. Mark Sherriff" maxlength="50" required>
+          </div>
+          <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <input type="text" class="form-control" id="isbn" name="isbn" placeholder="e.g. 9780262033848" maxlength="20" required>
+          </div>
+          <div class="form-group">
+            <label for="book_course">Book Course</label>
+            <input type="text" class="form-control" id="book_course" name="book_course" placeholder="e.g. Advanced Software Development" maxlength="30" required>
+          </div>
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="e.g. 50" max="1000.00" min="0" step="0.01" required>
+          </div>
+
+          <div class="form-group">
+            <label for="book_description">Book Description</label>
+            <input type="text" class="form-control" id="book_description" name="book_description" placeholder="(Optional)" maxlength="500">
+          </div>
+
+       <input type="submit" value="Create Listing"  class="btn btn-primary">
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+<style>
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  float: left;
+}
+
+.darker {
+  float: right;
+  border-color: #ccc;
+  color: #FFFFFF;
+  background-color: #1E90FF;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #ffffff;
+}
+
+.time-left {
+  float: left;
+  color: #686868;
+}
+</style>
+
+<h1 style="text-align:center">{{o.username}}</h1>
+</p>
+<p>
+    {% for mess in m%}
+
+    {% if mess.recipient.username == o.username%}  <!-- o is the recipient, so the other person is green--->
+<div class="container darker">
+    <p><strong>{{mess.sender.username}}:</strong> {{mess.message}}</p>
+    <span class="time-right">{{mess.pub_date}}</span>
+</div>
+<!--<p class="text-success" style="display:inline"> {{mess.recipient.username}} </p>: {{mess.message}} <p align=right>{{mess.pub_date}}</p>--->
+{% else %}
+<div class="container">
+<p><strong>{{mess.sender.username}}:</strong> {{mess.message}}</p>
+<span class="time-left">{{mess.pub_date}}</span>
+</div>
+<!--<p class="text-primary" style="display:inline">{{mess.recipient.username}} </p>: {{mess.message}} <p align=right>{{mess.pub_date}}</p>--->
+{% endif%}
+
+{% endfor %}
+
+{% endblock %}

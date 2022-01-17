@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<div class="header">
+  <h1 style="text-align:center;">Inbox</h1>
+</div>
+
+{% if people %}
+  {% for p in people%}
+{% if user == p.user%}
+  <form action="{% url 'inbox' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="rec" value="{{p.send}}" />
+    <button type="submit" class="btn btn-primary">{{p.send}}</button> {{p.pub_date}}
+  </form>
+{% else %}
+<form action="{% url 'inbox' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="rec" value="{{p.user}}" />
+    <button type="submit" class="btn btn-primary">{{p.user}}</button> {{p.pub_date}}
+  </form>
+{% endif%}
+</p>
+<p>
+  {% endfor %}
+{% else %}
+  No Messages
+{% endif%}
+  {% endblock %}

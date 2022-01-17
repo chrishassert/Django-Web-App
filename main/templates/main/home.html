@@ -1,0 +1,77 @@
+{% extends 'main/base.html' %}
+
+{% block searchbar %}
+<div id="search-container">
+    <!-- <div> -->
+    <!-- from: https://getbootstrap.com/docs/4.0/components/navbar/#forms -->
+    <form method="post" class="form-inline">
+        {% csrf_token %}
+        <div class="form-group">
+            <select name="inputState" id="inputState" class="form-control"
+                style="border-radius: .25rem 0px 0px .25rem !important;">
+                <option selected>Title</option>
+                <option>Author</option>
+                <option>Course</option>
+                <option>ISBN</option>
+            </select>
+        </div>
+        <input name="input" class="form-control mr-sm-2" type="search"
+            placeholder="Search" aria-label="Search"
+            style="border-radius: 0px .25rem .25rem 0px !important; width: 30vh">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+{%endblock %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<style>
+.card{
+    height: auto;
+    width: auto;
+    margin: 3vh;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+}
+
+.cardImg{
+    width: 23vh;
+    height: 23vh;
+    align-self: center;
+    /* height: 20%; */
+}
+p.textInsideCard{
+    color: black !important;
+    margin: 0 10% 0 10%;
+    align-self: center;
+    
+}
+</style>
+<div class="container">
+    <div class="row" style="margin-top: 20px">
+    {% for booklist in searchedList %}
+    <div id="displayTextbook">
+        <a href="{% url 'listingdetail' booklist.id %}">
+            <!-- https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg -->
+            <div class="card">
+                {% if booklist.book_image %}
+                <img class="cardImg" src="/media/{{booklist.book_image}}" alt="Book Image">
+                {% else %}
+                <img class="cardImg" src="/media/default_image.jpg" alt="Image not found">
+                {% endif %}
+                <p class="textInsideCard">
+                    <b>{{booklist.book_title}}</b><br>
+                    by {{booklist.author}} <br>
+                    ${{booklist.price}}
+                </p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

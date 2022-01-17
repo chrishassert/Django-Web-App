@@ -1,0 +1,16 @@
+  language: python
+python:
+- '3.6'
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: fb9d2bbd-86cd-4c30-abca-c6d6f1d0f827
+  app: project-101-textg1
+  on:
+    repo: uva-cs3240-s20/project-101-textg1

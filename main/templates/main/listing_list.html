@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+    <h2>Listings</h2>
+    <ul>
+        {% for listing in object_list %}
+            <li><a href="{% url 'listingdetail' listing.id %}">{{ listing.book_title }} </a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

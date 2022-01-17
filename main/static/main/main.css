@@ -1,0 +1,68 @@
+p{
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+/* clickable card on the sell page */
+.clickableCard {
+    cursor: pointer;
+}
+
+/* style changes when clickable card is hovered */
+.clickableCard:hover{
+    text-decoration: none !important;
+    border: 1px solid green !important;
+}
+
+/* when the card is unvisited */
+
+.profileCard{
+    /* background-color: gray;  */
+    height: 80vh; 
+    margin-top: 3vh; 
+    margin-bottom: 3vh;
+    border-radius: 2vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileImage{
+    height: 30vh;
+    width: 30vh;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.updateInline{
+    display: flex;
+    flex-direction: row;
+}
+
+#search-container{
+    margin-left: 25%;
+}
+
+#displayTextbook{
+    display: inline;
+    float: left;
+    overflow: hidden;
+}
+
+.card{
+    height: 35vh;
+    width: 30vh;
+    margin: 3vh;
+}
+
+.cardImg{
+    width: 90%;
+    height: 25vh;
+    align-self: center;
+    /* height: 20%; */
+}
+p.textInsideCard{
+    color: black !important;
+    margin: 0 10% 0 10%;
+}
